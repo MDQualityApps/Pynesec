@@ -22,6 +22,7 @@
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   {% block extra_css %}
 
   {% endblock %}
@@ -31,6 +32,9 @@
             #EC00A6,
             #eb076a
         ) !important;
+    }
+    .bg-info{
+      background-color: #673AB7 !important;
     }
     a.d-block{
       color:black;
@@ -76,7 +80,7 @@ color: #EC00A6 !important;
     </ul>
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-        <li class="nav-item d-none d-sm-inline-block"><a href="{% url 'login' %}" class="nav-link">RECENT SCANS</a></li>
+        <li class="nav-item d-none d-sm-inline-block"><a href="{% url 'recent' %}" class="nav-link">Recent Scan</a></li>
         <!-- <li class="nav-item d-none d-sm-inline-block"><a href="{% url 'home' %}" class="nav-link">STATIC ANALYZER</a></li> -->
         <!-- <li class="nav-item d-none d-sm-inline-block"><a href="{% url 'dynamic' %}" class="nav-link">DYNAMIC ANALYZER</a></li> -->
         <!-- <li class="nav-item d-none d-sm-inline-block"><a href="{% url 'api_docs' %}" class="nav-link">REST API</a></li>
