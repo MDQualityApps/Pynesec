@@ -96,20 +96,25 @@ sidebar-collapse
   font-size: 42px;
 }
 .risk-level > li:nth-child(1) {
-  background: #9FE2BF;
+  background: #EC00A6;
+  color:#fff;
 }
 .risk-level > li:nth-child(2) {
-  background: yellow;
+  background: #17A2B8;
+  color:#fff;
 }
 .risk-level > li:nth-child(3) {
-  background: #E4D00A;
+  background: #673AB7;
+  color:#fff;
 }
 .risk-level > li:nth-child(4) {
-  background: #ff0018;
+  background: #C3001C;
+  color:#fff;
 }
 
-.card-body{
-  background-color: #F4F8FB;
+.bg-warning{
+  background-color: #17A2B8!important;
+  color: #fff!important;;
 }
 .info-box{
   padding: 0 !important;
@@ -121,7 +126,15 @@ sidebar-collapse
   width: 35px!important;
 }
 .card {
-  box-shadow: 0 0 8px rgba(0,0,0,.125),0 1px 3px rgba(0,0,0,.3) !important;
+  /* background-color: #282c34!important; */
+  background-color: #fff!important;
+  box-shadow: 10px 10px 20px 0 grey !important;
+}
+.card-header{
+  border-bottom: none!important;
+}
+.border-btm{
+  border-bottom: 1px solid #E1E2E3;
 }
 /* Credits for Risk Level
 // @Author: Bastien Heynderickx (hachbé)
@@ -179,11 +192,11 @@ sidebar-collapse
                         {% if security_score < 30 %}
                         #ff0018
                         {% elif security_score < 40 %}
-                        #ffc107
+                        #17A2B8
                         {% elif security_score < 60 %}
-                        #17a2b8
+                        #673AB7
                         {% else %}
-                        #28a745
+                        #EC00A6
                         {% endif %}
                         ">
                         </br>
@@ -269,11 +282,11 @@ sidebar-collapse
                         <p>
                         <span class="privacy" style="{% if total_trackers %}
                             {% if trackers == 0 %}
-                              background:#39850d">
+                              color:#EC00A6">
                             {% elif trackers > 4 %}
-                              background:#ff0018">
+                              color:#ff0018">
                             {% else %}
-                              background:#303238">
+                              color:#303238">
                             {% endif %}
                             {{ trackers }} {% else %}"> NA {% endif %}</span>
                         </br>
@@ -290,7 +303,7 @@ sidebar-collapse
                     <div class="card">
                         <div class="card-header ui-sortable-handle" >
                           <h3 class="card-title">
-                            <i class="fas fa-file-alt"></i> Findings
+                            <img width="30" height="30" src="https://img.icons8.com/windows/30/673AB7/document--v1.png" alt="document--v1"/> Findings
                           </h3>
                         </div><!-- /.card-header -->
                         <div class="card-body">
@@ -299,8 +312,9 @@ sidebar-collapse
                                 <!-- /.col -->
                                 <div class="col-md-2 col-sm-6 col-12">
                                     <div class="info-box">
-                                      <span class="info-box-icon">                                      
-                                        <img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/DC3545/bug--v1.png" alt="bug--v1"/>
+                                      <span class="info-box-icon">  
+                                        <img width="30" height="30" src="https://img.icons8.com/external-nawicon-mixed-nawicon/30/DC3545/external-Hacker-internet-security-nawicon-mixed-nawicon.png" alt="external-Hacker-internet-security-nawicon-mixed-nawicon"/>                                 
+                                      
                                       </span>
                         
                                       <div class="info-box-content">
@@ -314,7 +328,7 @@ sidebar-collapse
                                   <!-- /.col -->
                                   <div class="col-md-3 col-sm-6 col-12">
                                     <div class="info-box">
-                                      <span class="info-box-icon"><img width="30" height="30" src="https://img.icons8.com/ios-filled/30/ffef00/medium-risk.png" alt="medium-risk"/></i></span>
+                                      <span class="info-box-icon"><img width="30" height="30" src="https://img.icons8.com/ios-filled/30/17A2B8/medium-risk.png" alt="medium-risk"/></i></span>
                         
                                       <div class="info-box-content">
                                         <span class="info-box-text">Medium</span>
@@ -341,7 +355,7 @@ sidebar-collapse
                                 <!-- /.col -->
                                 <div class="col-md-2 col-sm-6 col-12">
                                     <div class="info-box">
-                                      <span class="info-box-icon"><img width="30" height="30" src="https://img.icons8.com/color/30/security-checked--v1.png" alt="security-checked--v1"/></span>
+                                      <span class="info-box-icon"><img width="30" height="30" src="https://img.icons8.com/material-sharp/30/EC00A6/security-checked.png" alt="security-checked"/></span>
                         
                                       <div class="info-box-content">
                                         <span class="info-box-text">Secure</span>
@@ -355,7 +369,7 @@ sidebar-collapse
 
                               <div class="col-md-3 col-sm-6 col-12">
                                 <div class="info-box">
-                                  <span class="info-box-icon"><img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/D0D1D2/hotspot.png" alt="hotspot"/></span>
+                                  <span class="info-box-icon"><img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/B2BEB5/hotspot.png" alt="hotspot"/></span>
                     
                                   <div class="info-box-content">
                                     <span class="info-box-text"> {% if efr01 %}Need to Investigate{% else %}Hotspot{% endif %}</span>
@@ -370,7 +384,7 @@ sidebar-collapse
                              <!--end boxes-->
                             </br>
 {% for item in high %}
-    <div class="card">
+    <div class="border-btm">
         <a class="d-block w-100" data-toggle="collapse" href="#high-{{ forloop.counter }}">
         <div class="sameline">
             <div class="card-header">
@@ -390,12 +404,12 @@ sidebar-collapse
 {% endfor %}
 
 {% for item in warning %}
-    <div class="card">
+    <div class="border-btm">
         <a class="d-block w-100" data-toggle="collapse" href="#warning-{{ forloop.counter }}">
         <div class="sameline">
             <div class="card-header">
                 <h4 class="card-title w-100">
-                    <span class="badge bg-warning">medium</span> {{ item.title}}
+                    <span class="badge bg-warning ">medium</span> {{ item.title}}
                 </h4>
             </div>
             <label class="py-2"> {{ item.section | upper }}</label>
@@ -410,7 +424,7 @@ sidebar-collapse
 {% endfor %}
 
 {% for item in info %}
-    <div class="card">
+    <div class="border-btm">
         <a class="d-block w-100" data-toggle="collapse" href="#info-{{ forloop.counter }}">
         <div class="sameline">
             <div class="card-header">
@@ -433,12 +447,12 @@ sidebar-collapse
 
 
 {% for item in secure %}
-    <div class="card">
+    <div class="border-btm">
         <a class="d-block w-100" data-toggle="collapse" href="#success-{{ forloop.counter }}">
         <div class="sameline">
             <div class="card-header">
                 <h4 class="card-title w-100">
-                    <span class="badge bg-success">secure</span> {{ item.title}}
+                    <span class="badge text-white" style="background-color: #EC00A6;">secure</span> {{ item.title}}
                 </h4>
             </div>
             <label class="text-right py-2"> {{ item.section | upper }}</label>
@@ -455,7 +469,7 @@ sidebar-collapse
 
 
 {% for item in hotspot %}
-    <div class="card">
+    <div class="border-btm">
         <a class="d-block w-100" data-toggle="collapse" href="#secondary-{{ forloop.counter }}">
         <div class="sameline">
             <div class="card-header">
@@ -525,7 +539,7 @@ sidebar-collapse
     const sp = Math.floor(secure/ total * 100)
     var ctx = document.getElementById("severity").getContext('2d');
     var myChart = new Chart(ctx, {
-    type: 'pie',
+    type: 'polarArea',
     options: {
         responsive: true,
         legend: {
@@ -542,10 +556,10 @@ sidebar-collapse
         labels: [`High`, `Medium`, `Info`, `Secure`],
         datasets: [{
         backgroundColor: [
-            "#e32636",
-            "#ffef00",
-            "#7F00FF",
-            "#77dd77",
+            "#C3001C",
+            "#17A2B8",
+            "#673AB7",
+            "#EC00A6",
         ],
         data: [hp, wp, ip, sp],
         }],
@@ -570,23 +584,23 @@ sidebar-collapse
         value: riskFactor,
         minValue: 0,
         data: [1, 2, 3, 4],
-        backgroundColor: ['#9FE2BF', 'yellow', 'orange', '#B80F0A'],
+        backgroundColor: ['#EC00A6', '#17A2B8', '#673AB7', '#C3001C'],
       }]
     },
     options: {
       needle: {
         radiusPercentage: 2,
-        widthPercentage: 3.2,
-        lengthPercentage: 80,
-        color: 'rgba(0, 0, 0, 1)'
+        widthPercentage: 2.2,
+        lengthPercentage: 60,
+        color: '#EC00A6'
       },
       valueLabel: {
         display: true,
         formatter: (value) => {
           return '{% if security_score < 30 %}Critical Risk{% elif security_score < 40 %}High Risk{% elif security_score < 60 %}Medium Risk{% else %}Low Risk{% endif %}';
         },
-        color: 'rgba(255, 255, 255, 1)',
-        backgroundColor: 'rgba(0, 0, 0, 1)',
+        color: 'rgba(0, 0, 0, 1)',
+        backgroundColor: 'white',
         fontSize: 20,
         borderRadius: 5,
         padding: {

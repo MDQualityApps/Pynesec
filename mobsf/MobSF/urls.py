@@ -31,6 +31,8 @@ from mobsf.StaticAnalyzer.views.ios import static_analyzer as ios_sa
 from mobsf.StaticAnalyzer.views.ios import view_source as io_view_source
 
 from . import settings
+from django.shortcuts import render,redirect
+
 
 
 urlpatterns = [
@@ -80,6 +82,8 @@ urlpatterns = [
 if settings.API_ONLY == '0':
     urlpatterns.extend([
         # General
+        # re_path(r'^$', lambda r: redirect('/package')),
+        # re_path(r'^package$', home.index, name='package'),
         re_path(r'^$', home.index, name='login'),
         re_path(r'^signup$', home.signup, name='signup'),
         re_path(r'^logout/$', home.logout_view, name='logout'),

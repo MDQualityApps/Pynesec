@@ -69,6 +69,8 @@ register.filter('key', key)
 #         template = 'general/login.html'
 #         return render(request, template)
 
+
+
 def index(request):
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -111,7 +113,7 @@ def signup(request):
         template = 'general/signup.html'
         return render(request,template) 
     
-# @login_required
+@login_required
 def home(request):
 
         mimes = (settings.APK_MIME
@@ -226,7 +228,7 @@ class Upload(object):
         elif self.file_type.is_appx():
             return scanning.scan_appx()
 
-
+@login_required
 def api_docs(request):
     """Api Docs Route."""
     context = {
@@ -237,7 +239,7 @@ def api_docs(request):
     template = 'general/apidocs.html'
     return render(request, template, context)
 
-# @login_required
+@login_required
 def about(request):
     username = request.session.get('username')
     if username:
@@ -262,7 +264,7 @@ def donate(request):
     template = 'general/donate.html'
     return render(request, template, context)
 
-
+@login_required
 def error(request):
     """Error Route."""
     context = {
@@ -272,7 +274,7 @@ def error(request):
     template = 'general/error.html'
     return render(request, template, context)
 
-
+@login_required
 def zip_format(request):
     """Zip Format Message Route."""
     context = {
