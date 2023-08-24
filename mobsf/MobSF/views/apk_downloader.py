@@ -85,6 +85,7 @@ def add_apk(dwd_file, filename):
             'hash': md5,
             'scan_type': scan_type,
             'file_name': filename,
+            
         }
         add_to_recent_scan(data)
         return data

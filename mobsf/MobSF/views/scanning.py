@@ -21,6 +21,7 @@ def add_to_recent_scan(data):
                 ANALYZER=data['analyzer'],
                 SCAN_TYPE=data['scan_type'],
                 FILE_NAME=data['file_name'],
+                USER_NAME=data['user_name'],
                 APP_NAME='',
                 PACKAGE_NAME='',
                 VERSION_NAME='',
@@ -60,15 +61,17 @@ def handle_uploaded_file(content, extension):
 
 class Scanning(object):
 
-    def __init__(self, request):
+    def __init__(self, request, user_name=None):
         self.file = request.FILES['file']
         self.file_name = request.FILES['file'].name
+        self.user_name = user_name
         self.data = {
             'analyzer': 'static_analyzer',
             'status': 'success',
             'hash': '',
             'scan_type': '',
             'file_name': self.file_name,
+            'user_name': self.user_name,
         }
 
     def scan_apk(self):

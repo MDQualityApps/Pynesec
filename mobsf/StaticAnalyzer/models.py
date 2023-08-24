@@ -11,13 +11,16 @@ class RecentScansDB(models.Model):
     APP_NAME = models.CharField(max_length=260, default='')
     PACKAGE_NAME = models.CharField(max_length=260, default='')
     VERSION_NAME = models.CharField(max_length=50, default='')
+    USER_NAME = models.CharField(max_length=260, default='')
     MD5 = models.CharField(max_length=32, default='', primary_key=True)
     TIMESTAMP = models.DateTimeField(default=datetime.now)
+
 
 
 class StaticAnalyzerAndroid(models.Model):
     FILE_NAME = models.CharField(max_length=260, default='')
     APP_NAME = models.CharField(max_length=255, default='')
+    USER_NAME = models.TextField(max_length=255, default='')
     APP_TYPE = models.CharField(max_length=20, default='')
     SIZE = models.CharField(max_length=50, default='')
     MD5 = models.CharField(max_length=32, default='', primary_key=True)
@@ -109,6 +112,7 @@ class StaticAnalyzerWindows(models.Model):
     SHA1 = models.CharField(max_length=40, default='')
     SHA256 = models.CharField(max_length=64, default='')
     APP_VERSION = models.TextField(default='')
+    USER_NAME = models.TextField(default='')
     ARCHITECTURE = models.TextField(default='')
     COMPILER_VERSION = models.TextField(default='')
     VISUAL_STUDIO_VERSION = models.TextField(default='')

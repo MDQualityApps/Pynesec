@@ -33,6 +33,7 @@ def run_analysis(apk_dir, md5_hash, package):
     clip_tag = 'I/CLIPDUMP-INFO-LOG'
     clip_tag2 = 'I CLIPDUMP-INFO-LOG'
     # Collect Clipboard
+    
     for log_line in data['logcat']:
         if clip_tag in log_line:
             clipboard.append(log_line.replace(clip_tag, 'Process ID '))

@@ -93,11 +93,15 @@ def static_analyzer(request, api=False):
             checksum = request.POST['hash']
             filename = request.POST['file_name']
             re_scan = request.POST.get('re_scan', 0)
+            user_name = request.POST.get('user_name', '')  
+          
         else:
             typ = request.GET['type']
             checksum = request.GET['checksum']
             filename = request.GET['name']
             re_scan = request.GET.get('rescan', 0)
+            user_name = request.GET.get('user_name', '')  
+            
         if re_scan == '1':
             rescan = True
         # Input validation
@@ -109,6 +113,7 @@ def static_analyzer(request, api=False):
                 and typ in ['zip', 'apk', 'xapk', 'apks', 'jar', 'aar']):
             app_dic['dir'] = Path(settings.BASE_DIR)  # BASE DIR
             app_dic['app_name'] = filename  # APP ORIGINAL NAME
+            app_dic['user_name'] = user_name  # APP ORIGINAL NAME
             app_dic['md5'] = checksum  # MD5
             logger.info('Scan Hash: %s', checksum)
             # APP DIRECTORY
@@ -237,6 +242,8 @@ def static_analyzer(request, api=False):
                     code_an_dic['domains'] = MalwareDomainCheck().scan(
                         list(set(code_an_dic['urls_list'])))
                     app_dic['zipped'] = 'apk'
+                    app_dic['user_name'] = 'user_name'
+                  
 
                     logger.info('Connecting to Database')
                     try:
@@ -254,6 +261,7 @@ def static_analyzer(request, api=False):
                                 apkid_results,
                                 quark_results,
                                 tracker_res,
+                                
                             )
                             update_scan_timestamp(app_dic['md5'])
                         else:
@@ -309,7 +317,7 @@ def static_analyzer(request, api=False):
                     '/static_analyzer_ios/?name='
                     + app_dic['app_name']
                     + '&type=ios&checksum='
-                    + app_dic['md5']
+                    + app_dic['md5']+'&user_name='+app_dic['user_name']
                 )
                 # Check if in DB
                 # pylint: disable=E1101

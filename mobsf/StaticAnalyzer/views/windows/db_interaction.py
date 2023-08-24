@@ -107,6 +107,7 @@ def save_or_update(update_type,
             'STRINGS': bin_an_dic['strings'],
             'BINARY_ANALYSIS': bin_an_dic['results'],
             'BINARY_WARNINGS': bin_an_dic['warnings'],
+       
         }
         if update_type == 'save':
             db_entry = StaticAnalyzerWindows.objects.filter(

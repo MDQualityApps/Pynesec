@@ -16,6 +16,7 @@ from django.shortcuts import render,redirect
 from django.template.defaulttags import register
 from django.contrib.auth.models import User
 from django.contrib import messages
+from requests import request
 
 from mobsf.MobSF.forms import FormUtil, UploadFileForm
 from mobsf.MobSF.utils import (
@@ -45,29 +46,6 @@ LINUX_PLATFORM = ['Darwin', 'Linux']
 HTTP_BAD_REQUEST = 400
 logger = logging.getLogger(__name__)
 register.filter('key', key)
-
-
-
-# users = {
-#     'pynesec': 'pass',
-# }
-
-# def index(request):
-#     if request.method == 'POST':
-#         username = request.POST.get('username')
-#         password = request.POST.get('password')
-
-#         if username in users and users[username] == password:
-#             request.session['username'] = username
-#             template = 'general/home.html'
-#             return render(request, template)
-#         else:
-#             error_message = "Invalid username or password."
-#             template = 'general/login.html'
-#             return render(template, {'error_message': error_message})
-#     else:
-#         template = 'general/login.html'
-#         return render(request, template)
 
 
 
@@ -136,12 +114,14 @@ def logout_view(request):
 
 class Upload(object):
     """Handle File Upload based on App type."""
-
+   
     def __init__(self, request):
+
         self.request = request
         self.form = UploadFileForm(request.POST, request.FILES)
         self.file_type = None
-        self.file = None
+        self.file = None 
+        self.user_name = 'test'
 
     @staticmethod
     def as_view(request):
@@ -207,7 +187,8 @@ class Upload(object):
 
     def upload(self):
         request = self.request
-        scanning = Scanning(request)
+        user_name = self.user_name
+        scanning = Scanning(request, user_name=user_name)
         content_type = self.file.content_type
         file_name = self.file.name
         logger.info('MIME Type: %s FILE: %s', content_type, file_name)
@@ -241,8 +222,6 @@ def api_docs(request):
 
 @login_required
 def about(request):
-    username = request.session.get('username')
-    if username:
         """About Route."""
         context = {
             'title': 'Services',
@@ -250,10 +229,7 @@ def about(request):
         }
         template = 'general/about.html'
         return render(request, template, context)
-    else:
-        template = 'general/login.html'
-        return render(request, template, context)
-
+   
 
 def donate(request):
     """Donate Route."""
@@ -299,7 +275,10 @@ def recent_scans(request):
   
         """Show Recent Scans Route."""
         entries = []
-        db_obj = RecentScansDB.objects.all().order_by('-TIMESTAMP').values()
+        # Get the currently logged-in user's username from the session
+        user_name = request.GET.get('user_name')
+        #db_obj = RecentScansDB.objects.all().order_by('-TIMESTAMP').values()
+        db_obj = RecentScansDB.objects.filter(USER_NAME=user_name).order_by('-TIMESTAMP').values()
         android = StaticAnalyzerAndroid.objects.all()
         package_mapping = {}
         for item in android:

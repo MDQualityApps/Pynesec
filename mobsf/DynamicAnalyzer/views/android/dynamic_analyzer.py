@@ -302,6 +302,7 @@ def trigger_static_analysis(request, checksum):
             return print_n_send_error_response(
                 request,
                 'Invalid MD5')
+        
         package = get_package_name(checksum)
         if not package:
             return print_n_send_error_response(

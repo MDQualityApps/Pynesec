@@ -5,6 +5,7 @@ class UploadFileForm(forms.Form):
     file = forms.FileField()
 
 
+
 class FormUtil(object):
 
     def __init__(self, form):

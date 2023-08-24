@@ -188,6 +188,7 @@ def save_or_update(update_type,
             'APP_NAME': info_dict['bin_name'],
             'PACKAGE_NAME': info_dict['id'],
             'VERSION_NAME': info_dict['bundle_version_name'],
+    
         }
         RecentScansDB.objects.filter(
             MD5=app_dict['md5_hash']).update(**values)

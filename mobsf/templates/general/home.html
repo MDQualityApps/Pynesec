@@ -44,7 +44,7 @@
             <div class="navbar-collapse collapse" id="collapsingNavbar">
                 <ul class="navbar-nav">
                     <li class="nav-item active">
-                        <a class="nav-link" href="{% url 'recent' %}">RECENT</a>
+                        <a class="nav-link" href="{% url 'recent' %}?user_name={{ user_name }}">RECENT</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
@@ -53,7 +53,7 @@
                         <form action="{% url 'logout' %}" method="GET">
                             {% csrf_token %}
                             <button class="btn btn-sm outlineprimary" type="submit">Logout</button>
-                          </form>
+                        </form>
                     </li>
                 </ul>
             </div>
@@ -83,13 +83,16 @@
                      {% csrf_token %}
                      <div class="fileUpload btn btn-default btn-lg" id="but">
                         <input type="file" name="file" id="uploadFile" placeholder="Choose File" multiple>
+                        <input name="user_name" id="uploadFile" class="d-none" value="{{ user_name }}">
                         <span class="fas fa-cloud-upload-alt"></span>
                         Upload &amp; Analyze
                      </div>
                      <br />
                      <small><i>Drag &amp; Drop anywhere!</i></small>
                      <h5 id="status"></h5>
-                     <progress id="progressBar" value="0" max="100" style="width:300px;visibility:hidden;" ></progress>
+                   
+                     <progress id="progressBar" value="0" max="100" style="width:300px;visibility:hidden;" >
+                    </progress>
                   </form>
                </div>
                <div class="mastfoot">
@@ -98,10 +101,11 @@
 
 
                   <div class="inner">
-                     <h6 style="color:#333;"> <a class="txt" href="{% url 'recent' %}">RECENT SCANS</a></h6>  
+                     <h6 style="color:#333;"> <a class="txt" href="{% url 'recent' %}?user_name={{ user_name }}">RECENT SCANS</a></h6>  
                      <!-- |  <a class="txt" href="{% url 'dynamic' %}">DYNAMIC ANALYZER</a>  |  <a class="txt" href="{% url 'about' %}">ABOUT</a> -->
                      </br>
                      <p style="color:#333;">&copy; {% now "Y" %}  Pynesec Technologies {{ version }}</p>
+
                   </div>
                </div>
             </div>
@@ -139,6 +143,7 @@
 
             //Download and scan APK
             $('#package').keypress(function(event){
+         
                 var keycode = (event.keyCode ? event.keyCode : event.which);
                 if(keycode == '13'){
                     _("status").innerText = 'Trying to download ...';
@@ -149,6 +154,7 @@
                         dataType: "json", 
                         data : {
                             package: $('#package').val(),
+                            user_name: '{{ user_name }}',
                             csrfmiddlewaretoken: '{{ csrf_token }}',
                         },
                         success : function(json){
@@ -168,6 +174,7 @@
 
                                 url = json.analyzer + '/?name=' + encodeURIComponent(json.file_name) + '&checksum=' + json.hash + '&type=' + json.scan_type
                                 load_result(url);
+                               
                             } else {
                                 hide_loader();
                                 _("status").innerText = json.description;
@@ -211,7 +218,7 @@
                     }, 2000);
                     var url = json.analyzer + '/';
                     if (json.hash){
-                        url += '?name=' + encodeURIComponent(json.file_name) + '&checksum=' + json.hash + '&type=' + json.scan_type
+                        url += '?name=' + encodeURIComponent(json.file_name) + '&checksum=' + json.hash + '&type=' + json.scan_type 
                     }
                     load_result(url);
                 }
@@ -344,24 +351,21 @@
                         return;
                     }
                     var files = _("uploadFile").files;
-                    if (document.location.host === 'mobsf.live'){
+                 
                         if (confirm(warning) == true) {
                             _("uploadFile").style.display = "none";
                             handleFiles(files);
                         } else {
                             return;
                         }
-                    } else {
-                        _("uploadFile").style.display = "none";
-                        handleFiles(files);
-                    }
+                
                 });
             });
       </script>
  {% else %}
  <!-- Redirect to login page -->
  <script>
-     window.location.href = '/';  // Replace '/login' with the URL of your login page
+     window.location.href = 'login';  // Replace '/login' with the URL of your login page
  </script>
 {% endif %}
 </body>

@@ -170,6 +170,7 @@ def save_or_update(update_type,
         values = {
             'FILE_NAME': app_dic['app_name'],
             'APP_NAME': app_dic['real_name'],
+            # 'USER_NAME': app_dic['user_name'],
             'APP_TYPE': app_dic['zipped'],
             'SIZE': app_dic['size'],
             'MD5': app_dic['md5'],
@@ -225,9 +226,12 @@ def save_or_update(update_type,
         logger.exception('Updating DB')
     try:
         values = {
+
             'APP_NAME': app_dic['real_name'],
+            # 'USER_NAME': app_dic['user_name'],
             'PACKAGE_NAME': man_data_dic['packagename'],
             'VERSION_NAME': man_data_dic['androvername'],
+           
         }
         RecentScansDB.objects.filter(
             MD5=app_dic['md5']).update(**values)

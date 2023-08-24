@@ -185,6 +185,7 @@ MIDDLEWARE = (
       'django.contrib.sessions.middleware.SessionMiddleware', 
        'django.contrib.messages.middleware.MessageMiddleware',
          'django.contrib.auth.middleware.AuthenticationMiddleware',
+        #   'mobsf.MobSF.views.api.api_middleware.BlockDirectAccessMiddleware',
 )
 ROOT_URLCONF = 'mobsf.MobSF.urls'
 WSGI_APPLICATION = 'mobsf.MobSF.wsgi.application'

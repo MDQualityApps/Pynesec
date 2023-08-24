@@ -7,6 +7,17 @@ from mobsf.MobSF.utils import api_key
 
 OK = 200
 
+# from django.shortcuts import redirect
+
+# class BlockDirectAccessMiddleware:
+#     def __init__(self, get_response):
+#         self.get_response = get_response
+
+#     def __call__(self, request):
+#         if not request.path.startswith('localhost:8000'):
+#             return redirect('http://localhost/pynesec/')
+#         return self.get_response(request)
+    
 
 def make_api_response(data, status=OK):
     """Make API Response."""
