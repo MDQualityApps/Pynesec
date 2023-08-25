@@ -79,11 +79,11 @@
                      <div id="textnode">Drop anywhere!</div>
                   </div>
                   </br>
-                  <form id="upload_form" enctype="multipart/form-data" method="post">
+                  <form  enctype="multipart/form-data" method="post">
                      {% csrf_token %}
                      <div class="fileUpload btn btn-default btn-lg" id="but">
-                        <input type="file" name="file" id="uploadFile" placeholder="Choose File" multiple>
-                        <input name="user_name" id="uploadFile" class="d-none" value="{{ user_name }}">
+                        <input type="file" id="uploadFile" name="file"  placeholder="Choose File" multiple>
+                        <input type="text" id="uploadFile" name="user_name"  class="d-none" value="{{ user_name }}">
                         <span class="fas fa-cloud-upload-alt"></span>
                         Upload &amp; Analyze
                      </div>
@@ -262,29 +262,31 @@
                 return false;
           }
          // File Upload
-         function uploadFile(file, i) {
-           try {
+         function uploadFile(file) {
+            try {
                 if (!isValidExt(file.name) || !isValidMime(file.type)){
                     return;
                 }
                 _("progressBar").style.visibility = "visible";
-                var url = '/upload/'
-                var xhr = new XMLHttpRequest()
-                xhr.open('POST', url, true)
-                xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest')
+                var url = '/upload/';
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', url, true);
+                xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
                 xhr.setRequestHeader("X-CSRFToken", '{{ csrf_token }}');
                 xhr.upload.addEventListener("progress", progressHandler, false);
                 xhr.addEventListener("load", completeHandler, false);
                 xhr.addEventListener("error", errorHandler, false);
                 xhr.addEventListener("abort", abortHandler, false);
+                var username = '{{user_name}}';
                 var formdata = new FormData();
                 formdata.append("file", file);
-                xhr.send(formdata)
+                formdata.append("user_name", username); // Include user_name in FormData
+                xhr.send(formdata);
             } catch (e) {
-                alert("Error:" + e);
+                alert("Error: " + e);
             }
-           }
-         
+        }
+                
            function handleFiles(files) {
                files = [...files]
                files.forEach(uploadFile)
@@ -343,7 +345,7 @@
                }
            });
 
-            $(document).ready(function() {
+           $(document).ready(function() {
                 // Button File Upload
                 $('input[type=file]').change(function() {
                     _('status').innerText = "";
@@ -351,14 +353,13 @@
                         return;
                     }
                     var files = _("uploadFile").files;
-                 
-                        if (confirm(warning) == true) {
-                            _("uploadFile").style.display = "none";
-                            handleFiles(files);
-                        } else {
-                            return;
-                        }
-                
+
+                    if (confirm(warning) == true) {
+                        _("uploadFile").style.display = "none";
+                        handleFiles(files); 
+                    } else {
+                        return;
+                    }
                 });
             });
       </script>

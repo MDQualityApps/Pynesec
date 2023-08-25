@@ -121,8 +121,7 @@ class Upload(object):
         self.form = UploadFileForm(request.POST, request.FILES)
         self.file_type = None
         self.file = None 
-        self.user_name = 'test'
-
+        self.user_name = request.POST['user_name']
     @staticmethod
     def as_view(request):
         upload = Upload(request)
