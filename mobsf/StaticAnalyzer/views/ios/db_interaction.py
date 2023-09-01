@@ -27,7 +27,7 @@ def get_context_from_db_entry(db_entry):
             'title': 'Static Analysis',
             'file_name': db_entry[0].FILE_NAME,
             'app_name': db_entry[0].APP_NAME,
-            'app_type': db_entry[0].APP_TYPE,
+            'user_name': db_entry[0].USER_NAME,
             'size': db_entry[0].SIZE,
             'md5': db_entry[0].MD5,
             'sha1': db_entry[0].SHA1,

@@ -143,7 +143,7 @@
 
             //Download and scan APK
             $('#package').keypress(function(event){
-         
+                var user_name = "{{ user_name }}"; 
                 var keycode = (event.keyCode ? event.keyCode : event.which);
                 if(keycode == '13'){
                     _("status").innerText = 'Trying to download ...';
@@ -172,7 +172,7 @@
                                     }
                                 }, 2000);
 
-                                url = json.analyzer + '/?name=' + encodeURIComponent(json.file_name) + '&checksum=' + json.hash + '&type=' + json.scan_type
+                                url = json.analyzer + '/?name=' + encodeURIComponent(json.file_name) + '&checksum=' + json.hash + '&type=' + json.scan_type + '&user_name='+ user_name
                                 load_result(url);
                                
                             } else {
@@ -201,6 +201,7 @@
             }
             // Response Handler     
             function responseHandler(json, isbutton) {
+                var user_name = "{{ user_name }}"; 
                 if (json.status === 'error') {
                     _("status").innerText = json.description;
                 } else {
@@ -218,7 +219,7 @@
                     }, 2000);
                     var url = json.analyzer + '/';
                     if (json.hash){
-                        url += '?name=' + encodeURIComponent(json.file_name) + '&checksum=' + json.hash + '&type=' + json.scan_type 
+                        url += '?name=' + encodeURIComponent(json.file_name) + '&checksum=' + json.hash + '&type=' + json.scan_type  + '&user_name=' + user_name;
                     }
                     load_result(url);
                 }
@@ -333,7 +334,7 @@
                document.querySelector("#drop").style.opacity = 0;
                document.querySelector("#textnode").style.fontSize = "42px";
                if(e.dataTransfer.files.length > 0) {
-                if (document.location.host === 'mobsf.live'){
+                if (document.location.host === 'localhost:8000'){
                     if (confirm(warning) == true) {
                         handleFiles(e.dataTransfer.files);
                     } else {

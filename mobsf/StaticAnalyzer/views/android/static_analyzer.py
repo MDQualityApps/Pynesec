@@ -93,14 +93,14 @@ def static_analyzer(request, api=False):
             checksum = request.POST['hash']
             filename = request.POST['file_name']
             re_scan = request.POST.get('re_scan', 0)
-            user_name = request.POST.get('user_name', '')  
-          
+            user_name =  request.GET['user_name']
+            
         else:
             typ = request.GET['type']
             checksum = request.GET['checksum']
             filename = request.GET['name']
             re_scan = request.GET.get('rescan', 0)
-            user_name = request.GET.get('user_name', '')  
+            user_name =  request.GET['user_name']
             
         if re_scan == '1':
             rescan = True
@@ -242,7 +242,7 @@ def static_analyzer(request, api=False):
                     code_an_dic['domains'] = MalwareDomainCheck().scan(
                         list(set(code_an_dic['urls_list'])))
                     app_dic['zipped'] = 'apk'
-                    app_dic['user_name'] = 'user_name'
+                    app_dic['user_name'] = user_name
                   
 
                     logger.info('Connecting to Database')
